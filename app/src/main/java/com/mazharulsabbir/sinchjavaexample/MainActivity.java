@@ -3,12 +3,12 @@ package com.mazharulsabbir.sinchjavaexample;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.FirebaseApp;
 import com.sinch.android.rtc.Sinch;
 import com.sinch.android.rtc.SinchClient;
 import com.sinch.android.rtc.calling.Call;
@@ -52,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
             //make a call!
             if (sinchClient.isStarted()) {
                 if (call == null) {
-                    call = sinchClient.getCallClient().callPhoneNumber("+8801611594448");
+                    EditText mMobileNumber = findViewById(R.id.mobile_number);
+                    if (mMobileNumber.getText() == null || mMobileNumber.getText().toString().length() > 11)
+                        return;
+
+                    call = sinchClient.getCallClient().callPhoneNumber("+88" + mMobileNumber.getText().toString());
                     callButton.setText("Hang Up");
 
                     Log.d(TAG, "makeCall: Making call..");
